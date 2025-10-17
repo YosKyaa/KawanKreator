@@ -68,6 +68,7 @@ flutter:
     - assets/imgs/logo/
     - assets/imgs/splash/
     - assets/imgs/forgotpassword/
+    - assets/imgs/icon/
     - codex/Login/
     - codex/Onboarding/
 

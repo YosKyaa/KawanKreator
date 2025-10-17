@@ -1,0 +1,44 @@
+class _SocialIconButton extends StatelessWidget {
+  final String? asset;
+  final Widget? icon;
+  final VoidCallback? onTap;
+  final String semanticLabel;
+
+  const _SocialIconButton({
+    this.asset,
+    this.icon,
+    required this.onTap,
+    required this.semanticLabel,
+  }) : assert(asset != null || icon != null, 'Provide asset or icon');
+
+  @override
+  Widget build(BuildContext context) {
+    return Semantics(
+      button: true,
+      label: semanticLabel,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(28),
+        child: Container(
+          width: 56,
+          height: 56,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.08),
+                blurRadius: 12,
+                offset: const Offset(0, 6),
+              ),
+            ],
+          ),
+          padding: const EdgeInsets.all(12),
+          child: asset != null
+              ? Image.asset(asset!)
+              : Center(child: icon),
+        ),
+      ),
+    );
+  }
+}

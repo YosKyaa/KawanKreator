@@ -19,10 +19,11 @@ class _OnboardingPageState extends ConsumerState<OnboardingPage> {
 
   final List<_SlideData> _slides = const [
     _SlideData(
-      title: 'KawanKreator',
-      description: 'Tempat berkumpulnya kreator untuk tumbuh bersama.',
+      title: '',
+      description: '',
       backgroundColor: KKColors.primary,
       isIntro: true,
+      tagline: 'Tempat kreator bertumbuh bersama.',
     ),
     _SlideData(
       imageAsset: 'assets/imgs/splash/hero-1.png',
@@ -100,6 +101,7 @@ class _SlideData {
   final String? semanticsLabel;
   final Color? backgroundColor;
   final bool isIntro;
+  final String? tagline;
 
   const _SlideData({
     required this.title,
@@ -108,6 +110,7 @@ class _SlideData {
     this.semanticsLabel,
     this.backgroundColor,
     this.isIntro = false,
+    this.tagline,
   });
 }
 
@@ -160,7 +163,7 @@ class _OnboardingSlide extends StatelessWidget {
           ),
         SafeArea(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+            padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -168,7 +171,7 @@ class _OnboardingSlide extends StatelessWidget {
                   alignment: Alignment.topRight,
                   child: _SkipChip(onPressed: onSkip),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 8),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,28 +183,48 @@ class _OnboardingSlide extends StatelessWidget {
                           image: true,
                           child: Image.asset(
                             'assets/imgs/logo/kk-white.png',
-                            width: 132,
+                            width: 148,
                             fit: BoxFit.contain,
                           ),
                         ),
-                        const SizedBox(height: 24),
-                      ],
-                      Text(
-                        slide.title,
-                        style:
-                            Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w700,
+                        if (slide.tagline != null &&
+                            slide.tagline!.trim().isNotEmpty) ...[
+                          const SizedBox(height: 16),
+                          Text(
+                            slide.tagline!,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(
+                                  color: Colors.white.withValues(alpha: 0.9),
+                                  fontWeight: FontWeight.w600,
                                 ),
-                      ),
-                      const SizedBox(height: 12),
-                      Text(
-                        slide.description,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Colors.white.withValues(alpha: 0.9),
-                            ),
-                      ),
-                      const SizedBox(height: 32),
+                          ),
+                        ],
+                        const SizedBox(height: 48),
+                      ] else ...[
+                        Text(
+                          slide.title,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineMedium
+                              ?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                              ),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          slide.description,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                color: Colors.white.withValues(alpha: 0.9),
+                              ),
+                        ),
+                        const SizedBox(height: 32),
+                      ],
                       Align(
                         alignment: Alignment.center,
                         child: _PageDots(
@@ -209,7 +232,7 @@ class _OnboardingSlide extends StatelessWidget {
                           total: total,
                         ),
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       if (pageIndex == total - 1)
                         KKButton(
                           label: 'Mulai',

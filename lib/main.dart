@@ -41,6 +41,7 @@ class MyApp extends ConsumerWidget {
       title: 'KawanKreator',
       theme: buildKKTheme(),
       routerConfig: router,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
